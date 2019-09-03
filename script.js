@@ -17,9 +17,7 @@ const goods = [
   }
 ];
 
-const renderGoodsItem = (title = '', price = null) => {
-  return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
-};
+const renderGoodsItem = (title = '', price = null) => `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
 
 const renderGoodsList = (list = []) => {
   const goodsList = list.map(item => renderGoodsItem(item.title, item.price));
