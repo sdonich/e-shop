@@ -23,6 +23,11 @@ class GoodsList {
       { title: 'Shoes', price: 250 }
     ];
   }
+
+  calculate() {
+    return this.goods.reduce((acc, item) => acc += item.price, 0);
+  }
+
   render() {
     document.querySelector(this.container).innerHTML = this.goods.reduce((acc, item) => {
       const good = new GoodsItem(item.title, item.price);
@@ -30,6 +35,48 @@ class GoodsList {
       return acc += good.render();
     }, '');
   };
+}
+
+class CartGoodsList {
+  constructor() {
+
+  }
+
+  fetchCartGoods() {
+    // подгрузка данных (товаров в корзине)
+  }
+
+  calculate() {
+    //подсчет общей стоимости товара в корзине
+  }
+
+  incrementItem(item) {
+    // обработчик события
+    // увеличение количества товара
+  }
+
+  decrementItem(item) {
+    // обработчик события
+    // уменьшение количества товара
+  }
+
+  removeItem(item) {
+    // обработчик события
+    // удаление товара
+  }
+
+  render() {
+    // отрисовка данных на странице
+  }
+}
+
+class CartGoodsItem {
+  constructor(title, price) {
+  }
+
+  render() {
+    // возврат HTML по одному товару
+  }
 }
 
 const list = new GoodsList('.goods-list');
