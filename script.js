@@ -1,10 +1,47 @@
+const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+function makeGetRequest(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        resolve(xhr.response);
+      }
+    }
+
+    xhr.send();
+  });
+}
+
+function makePostRequest(url, data) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', url);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(data);
+}
+
+function makeDeleteRequest(url, id) {
+  // id - надо запихнуть в url я полагаю
+  const xhr = new XMLHttpRequest();
+  xhr.open('DELETE', url);
+  xhr.send();
+}
+
 class GoodsItem {
   constructor(title = 'no name', price = 'no price') {
     this.title = title;
     this.price = price;
   }
 
+  addGoods() {
+    const addedGood = JSON.stringify({ product_name: this.title, price: this.price });
+    makePostRequest(`${BASE_URL}/addToBasket.json`, addedGood);
+  }
+
   render() {
+    this.addGoods();
     return `<div class="goods-item"><h3>${this.title}</h3><p>${this.price}</p></div>`;
   }
 }
@@ -16,21 +53,25 @@ class GoodsList {
   }
 
   fetchGoods() {
-    this.goods = [
-      { title: 'Shirt', price: 150 },
-      { title: 'Socks', price: 50 },
-      { title: 'Jacket', price: 350 },
-      { title: 'Shoes', price: 250 }
-    ];
+    return new Promise((resolve, reject) => {
+      makeGetRequest(`${BASE_URL}/catalogData.json`)
+        .then((response) => {
+          this.goods = JSON.parse(response);
+          resolve();
+        })
+    });
   }
 
   calculate() {
-    return this.goods.reduce((acc, item) => acc += item.price, 0);
+    return this.goods.reduce((total, item) => {
+      if (!good.price) return total;
+      return total += item.price
+    }, 0);
   }
 
   render() {
     document.querySelector(this.container).innerHTML = this.goods.reduce((acc, item) => {
-      const good = new GoodsItem(item.title, item.price);
+      const good = new GoodsItem(item.product_name, item.price);
 
       return acc += good.render();
     }, '');
@@ -43,7 +84,10 @@ class CartGoodsList {
   }
 
   fetchCartGoods() {
-    // подгрузка данных (товаров в корзине)
+    makeGetRequest(`${BASE_URL}/getBasket.json`)
+      .then((response) => {
+        this.goods = JSON.parse(response);
+      })
   }
 
   calculate() {
@@ -61,8 +105,7 @@ class CartGoodsList {
   }
 
   removeItem(item) {
-    // обработчик события
-    // удаление товара
+    makeDeleteRequest(`${BASE_URL}/deleteFromBasket.json`, item.id);
   }
 
   render() {
@@ -80,5 +123,5 @@ class CartGoodsItem {
 }
 
 const list = new GoodsList('.goods-list');
-list.fetchGoods();
-list.render();
+list.fetchGoods()
+  .then(() => list.render());

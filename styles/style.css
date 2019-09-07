@@ -52,9 +52,9 @@ main .goods-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 1000px;
   margin: 50px auto;
 }
@@ -72,6 +72,7 @@ main .goods-list .goods-item {
           align-items: center;
   width: 200px;
   padding: 20px 0;
+  margin: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }

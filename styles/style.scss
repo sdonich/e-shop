@@ -42,7 +42,7 @@ header {
 main {
   .goods-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 1000px;
     margin: 50px auto;
 
@@ -52,6 +52,7 @@ main {
       align-items: center;
       width: 200px;
       padding: 20px 0;
+      margin: 0 10px;
       border: 1px solid rgba(0, 0, 0, 0.4);
       border-radius: 10px;
 
