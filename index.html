@@ -14,31 +14,15 @@
   <div id="app">
     <header class="header">
       <div class="search">
-        <form class="goods-search-from">
+        <form class="goods-search-from" @submit.prevent>
           <input type="text" class="goods-search" v-model="searchLine">
-          <button class="search-button" @click.prevent="onSearchSubmit(searchLine)">Искать</button>
         </form>
       </div>
-      <button class="cart-button">Корзина</button>
+      <button class="cart-button" @click="toggleCartVisibility">Корзина</button>
+      <div class="cart-container" v-if="isVisibleCart"></div>
     </header>
     <main class="content">
-      <div class="goods-list">
-        <div class="goods-item" v-for="good in filteredGoods">
-          <h3>{{ good.product_name }}</h3>
-          <p>{{ good.price }}</p>
-          <button>Добавить в корзину</button>
-        </div>
-      </div>
-      <div class="cart" v-if="isVisibleCart">
-        <div class="cart-goods-list">
-          <div class="cart-item">
-            <h3>Наименование</h3>
-            <p>Цена</p>
-          </div>
-        </div>
-        <button class="submit-buy">Оформить</button>
-        <button class="reset-cart">Очистить корзину</button>
-      </div>
+      <goods-list :goods="filteredGoods" @add="addToCart"></goods-list>
     </main>
   </div>
 
