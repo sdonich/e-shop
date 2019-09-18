@@ -1,5 +1,23 @@
 const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
+Vue.component('search', {
+  props: ['searchLine'],
+  template: `
+    <div class="search">
+      <form class="goods-search-from" @submit.prevent>
+        <input type="text" class="goods-search" v-model="searchLine">
+      </form>
+    </div>
+  `  
+});
+
+Vue.component('cart', {
+  props: ['isVisibleCart'],
+  template: `
+    <div class="cart-container" v-if="isVisibleCart"></div>
+  `
+});
+
 Vue.component('goods-item', {
   props: ['good'],
   methods: {
@@ -82,9 +100,5 @@ const app = new Vue({
     toggleCartVisibility() {
       this.isVisibleCart = !this.isVisibleCart;
     },
-    filterGoods(searchLine) {
-      let regexp = new RegExp(`${searchLine}`, 'gi');
-      return [...this.goods].filter((good) => regexp.test(good.product_name));
-    }
   }
 });
