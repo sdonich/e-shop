@@ -1,33 +1,26 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
   <title>eShop</title>
 </head>
-
 <body>
-  <div id="app">
-    <header class="header">
-      <div class="search">
-        <form class="goods-search-from" @submit.prevent>
-          <input type="text" class="goods-search" v-model="searchLine">
-        </form>
-      </div>
-      <button class="cart-button" @click="toggleCartVisibility">Корзина</button>
-      <div class="cart-container" v-if="isVisibleCart"></div>
-    </header>
-    <main class="content">
-      <goods-list :goods="filteredGoods" @add="addToCart"></goods-list>
-    </main>
-  </div>
+<div id="app">
+  <notification :error="error" :level="level" v-for="(error, level) in errors" :key="`error-${level}`"></notification>
+  <header class="header">
+    <search v-model="searchLine"></search>
+    <cart :goods="goodsInCart"></cart>
+  </header>
+  <main class="content">
+    <goods-list :goods="filteredGoods" @add="addToCart"></goods-list>
+  </main>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="script.js"></script>
 </body>
-
 </html>

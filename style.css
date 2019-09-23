@@ -24,6 +24,10 @@ button {
     color: #fff;
 }
 
+.cart-button {
+    margin-left: auto;
+}
+
 .goods-list {
     display: flex;
     flex-wrap: wrap;
@@ -46,16 +50,37 @@ button {
     width: 100%;
     align-items: center;
     justify-content: center;
-
-    position: relative;
 }
 
 .cart-container {
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
     position: absolute;
     right: 20px;
     top: 55px;
-    width: 200px;
-    height: 200px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+.notification {
+    position: fixed;
+    right: 10px;
+    width: 250px;
+    z-index: 300;
+    padding: 10px 20px;
+}
+
+.notification--error {
+    background-color: #e25456;
+    border: 1px solid #cb0000;
+    border-radius: 3px;
+    color: #fff;
 }
